@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "cd2e2e35-c7d7-4d7b-9cf8-79c37e425c24",
+		"name": "WebApi.NET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29330789"
+	},
+	"item": [
+		{
+			"name": "CrearCompetencia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Competencia 1\",\r\n  \"fechaComienzo\": \"2024-06-19T16:14:27.187Z\",\r\n  \"fechaFin\": \"2024-06-19T16:14:27.187Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5072/competencia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerCompetencia",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5072/competencia/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegistrarDisciplina",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Natacion3\",\r\n    \"fechaCompeticion\": \"2024-06-19T16:14:27.187Z\",\r\n    \"reglas\": \"No comer\",\r\n    \"categoria\": \"16-20 años\",\r\n    \"genero\": \"F\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5072/competencia/1/disciplinas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1",
+						"disciplinas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerDisciplinas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5072/competencia/1/disciplinas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1",
+						"disciplinas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerDisciplina",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5072/competencia/1/disciplinas/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1",
+						"disciplinas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegistrarParticipante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pablo\",\r\n    \"pais\": \"Uruguay\",\r\n    \"genero\": \"F\",\r\n    \"edad\": 16,\r\n    \"peso\": 122,\r\n    \"altura\": 180\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5072/competencia/1/participantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1",
+						"participantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerParticipantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5072/competencia/1/participantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1",
+						"participantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerParticipante",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5072/competencia/1/participantes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"competencia",
+						"1",
+						"participantes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CalificarParticipante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"calificacion\": 4,\r\n    \"idParticipante\": 2,\r\n    \"descripcion\": \"string\",\r\n    \"fecha\": \"2024-06-19T18:53:35.315Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5072/disciplina/1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"disciplina",
+						"1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerResultados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5072/disciplina/1/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5072",
+					"path": [
+						"disciplina",
+						"1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -19,7 +19,7 @@ namespace WebApplication2.Controllers
         public IActionResult CrearCompetencia([FromBody] Competencia competencia)
         {
             _competenciaRepository.Add(competencia);
-            return CreatedAtAction(nameof(ObtenerCompetencia), new { id = competencia.IdCompetencia }, competencia);
+            return Ok(competencia);
         }
 
         [HttpGet("{idCompetencia}")]
@@ -36,9 +36,8 @@ namespace WebApplication2.Controllers
         [HttpPost("{idCompetencia}/disciplinas")]
         public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] Disciplina disciplina)
         {
-            disciplina.Resultados = new List<Resultado> { };
             _competenciaRepository.AddDisciplina(idCompetencia, disciplina);
-            return NoContent();
+            return Ok(disciplina);
         }
 
         [HttpGet("{idCompetencia}/disciplinas")]

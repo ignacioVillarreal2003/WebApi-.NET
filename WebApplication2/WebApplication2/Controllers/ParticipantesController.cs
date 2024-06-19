@@ -8,6 +8,6 @@ namespace WebApplication2.Controllers
     [Route("participante")]
     public class ParticipantesController : ControllerBase
     {
-        
+       
     }
 }

@@ -2,6 +2,11 @@
 {
     public abstract class Disciplina
     {
+        public Disciplina()
+        {
+            Resultados = new List<Resultado>();
+        }
+
         public int IdDisciplina { get; set; }
         public string Nombre { get; set; }
         public DateTime FechaCompeticion { get; set; }
