@@ -18,8 +18,6 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public IActionResult CrearCompetencia([FromBody] Competencia competencia)
         {
-            competencia.Disciplinas = new List<Disciplina> { };
-            competencia.Participantes = new List<Participante> { };
             _competenciaRepository.Add(competencia);
             return CreatedAtAction(nameof(ObtenerCompetencia), new { id = competencia.IdCompetencia }, competencia);
         }

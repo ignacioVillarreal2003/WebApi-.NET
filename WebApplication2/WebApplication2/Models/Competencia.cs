@@ -2,6 +2,12 @@
 {
     public class Competencia
     {
+        public Competencia()
+        {
+            Disciplinas = new List<Disciplina>();
+            Participantes = new List<Participante>();
+        }
+
         public int IdCompetencia { get; set; }
         public string Nombre { get; set; }
         public DateTime FechaComienzo { get; set; }
