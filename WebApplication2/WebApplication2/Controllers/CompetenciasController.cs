@@ -38,6 +38,7 @@ namespace WebApplication2.Controllers
         [HttpPost("{idCompetencia}/disciplinas")]
         public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] Disciplina disciplina)
         {
+            disciplina.Resultados = new List<Resultado> { };
             _competenciaRepository.AddDisciplina(idCompetencia, disciplina);
             return NoContent();
         }
