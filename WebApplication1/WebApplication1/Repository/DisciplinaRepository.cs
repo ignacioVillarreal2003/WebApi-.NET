@@ -36,6 +36,7 @@ namespace WebApplication1.Repository
             return disciplina?.Resultados;
         }
 
+        //Actualizamos el repositorio para que pueda agregar disciplinas específicas como Natacion.
         public Disciplina AddDisciplina(int idCompetencia, Disciplina disciplina)
         {
             disciplina.IdDisciplina = _IdDisciplina++;

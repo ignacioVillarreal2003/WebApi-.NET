@@ -42,6 +42,7 @@ namespace WebApplication1.Controllers
         }
         */
 
+        //Actualizar el controlador para permitir la creación de la nueva disciplina.
         [HttpPost("{idCompetencia}/disciplinas")]
         public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] Disciplina disciplina)
         {

@@ -28,6 +28,8 @@ namespace WebApplication1.Controllers
         }
         */
 
+        //Actualizar los métodos de calificación para asegurarnos de que la nueva disciplina 
+        //específica pueda ser calificada correctamente.
         [HttpPost("{idCompetencia}/{idDisciplina}")]
         public IActionResult CalificarParticipante(int idCompetencia, int idDisciplina, [FromBody] Resultado request)
         {
