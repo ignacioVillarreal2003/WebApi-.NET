@@ -33,13 +33,13 @@ namespace WebApplication1.Repository
             return null;
         }
 
-        public Participante AddParticipante(int idCompetencia, Participante participante)
+        public Participante AddParticipante(int idDisciplina, Participante participante)
         {
             participante.IdParticipante = _IdParticipante++;
-            var competencia = Get(idCompetencia);
-            if (competencia != null)
+            var disciplina = _competencias.SelectMany(c => c.Disciplinas).FirstOrDefault(d => d.IdDisciplina == idDisciplina);
+            if (disciplina != null)
             {
-                competencia.Participantes.Add(participante);
+                disciplina.Participantes.Add(participante);
                 return participante;
             }
             return null;
@@ -51,10 +51,10 @@ namespace WebApplication1.Repository
             return competencia?.Disciplinas;
         }
 
-        public List<Participante> GetParticipantes(int idCompetencia)
+        public List<Participante> GetParticipantes(int idDisciplina)
         {
-            var competencia = Get(idCompetencia);
-            return competencia?.Participantes;
+            var disciplina = _competencias.SelectMany(c => c.Disciplinas).FirstOrDefault(d => d.IdDisciplina == idDisciplina);
+            return disciplina?.Participantes;
         }
 
         public Disciplina GetDisciplina(int idCompetencia, int idDisciplina)
@@ -63,11 +63,12 @@ namespace WebApplication1.Repository
             return competencia?.Disciplinas.FirstOrDefault(d => d.IdDisciplina == idDisciplina);
         }
 
-        public Participante GetParticipante(int idCompetencia, int idParticipante)
+        public Participante GetParticipante(int idDisciplina, int idParticipante)
         {
-            var competencia = Get(idCompetencia);
-            return competencia?.Participantes.FirstOrDefault(p => p.IdParticipante == idParticipante);
+            var disciplina = _competencias.SelectMany(c => c.Disciplinas).FirstOrDefault(d => d.IdDisciplina == idDisciplina);
+            return disciplina?.Participantes.FirstOrDefault(p => p.IdParticipante == idParticipante);
         }
     }
+}
 }
 

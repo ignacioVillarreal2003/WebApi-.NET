@@ -9,46 +9,29 @@ namespace WebApplication1.Controllers
     public class DisciplinasController : ControllerBase
     {
         private readonly IDisciplinaRepository _disciplinaRepository;
+        private readonly ICompetenciaRepository _competenciaRepository;
+        private readonly ICalificacionVisitor _calificacionVisitor;
 
-        public DisciplinasController(IDisciplinaRepository disciplinaRepository)
+        public DisciplinasController(IDisciplinaRepository disciplinaRepository, ICompetenciaRepository competenciaRepository, ICalificacionVisitor calificacionVisitor)
         {
             _disciplinaRepository = disciplinaRepository;
+            _competenciaRepository = competenciaRepository;
+            _calificacionVisitor = calificacionVisitor;
         }
 
-        /*
         [HttpPost("{idCompetencia}/{idDisciplina}")]
-        public IActionResult CalificarParticipante(int idCompetencia, int idDisciplina, [FromBody] Resultado request)
+        public IActionResult CalificarParticipante(int idCompetencia, int idDisciplina, [FromBody] CalificacionRequest request)
         {
-            var resultados = _disciplinaRepository.CalificarParticipante(idCompetencia, idDisciplina, request.IdParticipante, request.Calificacion, request.Descripcion);
-            if (resultados == null)
+            var disciplina = _competenciaRepository.GetDisciplina(idCompetencia, idDisciplina);
+            if (disciplina == null)
             {
                 return NotFound();
             }
-            return Ok(resultados);
-        }
-        */
-
-        //Actualizar los métodos de calificación para asegurarnos de que la nueva disciplina 
-        //específica pueda ser calificada correctamente.
-        [HttpPost("{idCompetencia}/{idDisciplina}")]
-        public IActionResult CalificarParticipante(int idCompetencia, int idDisciplina, [FromBody] Resultado request)
-        {
-            var disciplina = _competenciaRepository.GetDisciplina(idCompetencia, idDisciplina);
-            if (disciplina is Natacion natacion)
+            var calificacion = disciplina.Accept(_calificacionVisitor, request);
+            if (calificacion == null)
             {
-                var resultado = natacion.CalificarParticipante(request.IdParticipante, request.Descripcion);
-                if (resultado)
-                {
-                    return Ok(natacion.Resultados.FirstOrDefault(r => r.IdParticipante == request.IdParticipante));
-                }
-            }
-            else
-            {
-                var resultado = _disciplinaRepository.CalificarParticipante(idCompetencia, idDisciplina, request.IdParticipante, request.Calificacion, request.Descripcion);
-                if (resultado != null)
-                {
-                    return Ok(resultado);
-                }
+                var cal = _disciplinaRepository.CalificarParticipante(idCompetencia, idDisciplina, request.IdParticipante, calificacion, request.Descripcion);
+                return Ok(cal);
             }
             return NotFound();
         }
