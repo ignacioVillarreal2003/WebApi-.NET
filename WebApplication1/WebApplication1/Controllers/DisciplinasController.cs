@@ -15,6 +15,7 @@ namespace WebApplication1.Controllers
             _disciplinaRepository = disciplinaRepository;
         }
 
+        /*
         [HttpPost("{idCompetencia}/{idDisciplina}")]
         public IActionResult CalificarParticipante(int idCompetencia, int idDisciplina, [FromBody] Resultado request)
         {
@@ -25,6 +26,31 @@ namespace WebApplication1.Controllers
             }
             return Ok(resultados);
         }
+        */
+
+        [HttpPost("{idCompetencia}/{idDisciplina}")]
+        public IActionResult CalificarParticipante(int idCompetencia, int idDisciplina, [FromBody] Resultado request)
+        {
+            var disciplina = _competenciaRepository.GetDisciplina(idCompetencia, idDisciplina);
+            if (disciplina is Natacion natacion)
+            {
+                var resultado = natacion.CalificarParticipante(request.IdParticipante, request.Descripcion);
+                if (resultado)
+                {
+                    return Ok(natacion.Resultados.FirstOrDefault(r => r.IdParticipante == request.IdParticipante));
+                }
+            }
+            else
+            {
+                var resultado = _disciplinaRepository.CalificarParticipante(idCompetencia, idDisciplina, request.IdParticipante, request.Calificacion, request.Descripcion);
+                if (resultado != null)
+                {
+                    return Ok(resultado);
+                }
+            }
+            return NotFound();
+        }
+
 
         [HttpGet("{idCompetencia}/{idDisciplina}")]
         public IActionResult ObtenerResultados(int idCompetencia, int idDisciplina)

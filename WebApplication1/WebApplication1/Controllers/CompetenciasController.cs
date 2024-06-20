@@ -33,12 +33,47 @@ namespace WebApplication1.Controllers
             return Ok(competencia);
         }
 
+        /*
         [HttpPost("{idCompetencia}/disciplinas")]
         public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] Disciplina disciplina)
         {
             Disciplina disc = _competenciaRepository.AddDisciplina(idCompetencia, disciplina);
             return Ok(disc);
         }
+        */
+
+        [HttpPost("{idCompetencia}/disciplinas")]
+        public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] Disciplina disciplina)
+        {
+            Disciplina nuevaDisciplina = null;
+
+            if (disciplina is Natacion)
+            {
+                nuevaDisciplina = new Natacion
+                {
+                    Nombre = disciplina.Nombre,
+                    FechaCompeticion = disciplina.FechaCompeticion,
+                    Reglas = disciplina.Reglas,
+                    Categoria = disciplina.Categoria,
+                    Genero = disciplina.Genero
+                };
+            }
+            else
+            {
+                nuevaDisciplina = new Disciplina
+                {
+                    Nombre = disciplina.Nombre,
+                    FechaCompeticion = disciplina.FechaCompeticion,
+                    Reglas = disciplina.Reglas,
+                    Categoria = disciplina.Categoria,
+                    Genero = disciplina.Genero
+                };
+            }
+
+            var disc = _competenciaRepository.AddDisciplina(idCompetencia, nuevaDisciplina);
+            return Ok(disc);
+        }
+
 
         [HttpGet("{idCompetencia}/disciplinas")]
         public IActionResult ObtenerDisciplinas(int idCompetencia)

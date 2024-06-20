@@ -35,5 +35,26 @@ namespace WebApplication1.Repository
             var disciplina = _competenciaRepository.GetDisciplinas(idCompetencia).FirstOrDefault(d => d.IdDisciplina == idDisciplina);
             return disciplina?.Resultados;
         }
+
+        public Disciplina AddDisciplina(int idCompetencia, Disciplina disciplina)
+        {
+            disciplina.IdDisciplina = _IdDisciplina++;
+            var competencia = Get(idCompetencia);
+            if (competencia != null)
+            {
+                if (disciplina is Natacion)
+                {
+                    var natacion = new Natacion();
+                    competencia.Disciplinas.Add(natacion);
+                    return natacion;
+                }
+                else
+                {
+                    competencia.Disciplinas.Add(disciplina);
+                    return disciplina;
+                }
+            }
+            return null;
+        }
     }
 }
