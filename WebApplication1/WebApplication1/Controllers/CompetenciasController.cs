@@ -9,17 +9,50 @@ namespace WebApplication1.Controllers
     public class CompetenciasController : ControllerBase
     {
         private readonly ICompetenciaRepository _competenciaRepository;
+        private readonly ICalificacionVisitor _calificacionVisitor;
 
-        public CompetenciasController(ICompetenciaRepository competenciaRepository)
+        public CompetenciasController(ICompetenciaRepository competenciaRepository, ICalificacionVisitor calificacionVisitor)
         {
             _competenciaRepository = competenciaRepository;
+            _calificacionVisitor = calificacionVisitor;
         }
 
-        [HttpPost]
-        public IActionResult CrearCompetencia([FromBody] Competencia competencia)
+        [HttpPost("{idCompetencia}/disciplinas")]
+        public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] DisciplinaRequest request)
         {
-            Competencia comp = _competenciaRepository.Add(competencia);
-            return Ok(comp);
+            Disciplina nuevaDisciplina = CrearDisciplina(request);
+            var disc = _competenciaRepository.AddDisciplina(idCompetencia, nuevaDisciplina);
+            return Ok(disc);
+        }
+
+        private Disciplina CrearDisciplina(DisciplinaRequest request)
+        {
+            if (request.TipoDisciplina == "Natacion")
+            {
+                return new Natacion
+                {
+                    Nombre = request.Nombre,
+                    FechaCompeticion = request.FechaCompeticion,
+                    Reglas = request.Reglas,
+                    Categoria = request.Categoria,
+                    Genero = request.Genero
+                };
+            }
+            else if (request.TipoDisciplina == "Alterofilia")
+            {
+                return new Alterofilia
+                {
+                    Nombre = request.Nombre,
+                    FechaCompeticion = request.FechaCompeticion,
+                    Reglas = request.Reglas,
+                    Categoria = request.Categoria,
+                    Genero = request.Genero
+                };
+            }
+            else
+            {
+                throw new ArgumentException($"Disciplina desconocida: {request.TipoDisciplina}");
+            }
         }
 
         [HttpGet("{idCompetencia}")]
@@ -31,13 +64,6 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
             return Ok(competencia);
-        }
-
-        [HttpPost("{idCompetencia}/disciplinas")]
-        public IActionResult RegistrarDisciplina(int idCompetencia, [FromBody] Disciplina disciplina)
-        {
-            Disciplina disc = _competenciaRepository.AddDisciplina(idCompetencia, disciplina);
-            return Ok(disc);
         }
 
         [HttpGet("{idCompetencia}/disciplinas")]

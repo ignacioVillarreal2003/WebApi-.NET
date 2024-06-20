@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Models
 {
-    public class Disciplina
+    public abstract class Disciplina : IDisciplina
     {
         [JsonConstructor]
         public Disciplina()
@@ -18,11 +18,9 @@ namespace WebApplication1.Models
         public string Genero { get; set; }
         public List<Resultado> Resultados { get; set; }
 
-        public virtual bool CalificarParticipante(int idParticipante, string descripcion)
+        public virtual void Accept(ICalificacionVisitor visitor, CalificacionRequest request)
         {
-            // Implementación del método si es necesario
-            return false;
+
         }
     }
-
 }
